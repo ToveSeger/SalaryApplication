@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryApplication", "SalaryApplication.csproj", "{353C36DB-9747-43AC-B389-BB57D4B7DF1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryApplicationTests", "SalaryApplicationTests\SalaryApplicationTests.csproj", "{9C44A91E-A642-4B47-A0BA-962A49C56F5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{353C36DB-9747-43AC-B389-BB57D4B7DF1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353C36DB-9747-43AC-B389-BB57D4B7DF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353C36DB-9747-43AC-B389-BB57D4B7DF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353C36DB-9747-43AC-B389-BB57D4B7DF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C44A91E-A642-4B47-A0BA-962A49C56F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C44A91E-A642-4B47-A0BA-962A49C56F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C44A91E-A642-4B47-A0BA-962A49C56F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C44A91E-A642-4B47-A0BA-962A49C56F5C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2675D15-BDCB-4388-AE4A-127D60371650}
+	EndGlobalSection
+EndGlobal
