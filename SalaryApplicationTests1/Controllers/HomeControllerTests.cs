@@ -5,7 +5,7 @@ using SalaryApplication.Controllers;
 namespace SalaryApplication.Controllers.Tests
 {
     [TestFixture()]
-    public class HomeControllerTests
+    public class HomeControllerTests 
     {
         HomeController controller = new();
         [Test()]
