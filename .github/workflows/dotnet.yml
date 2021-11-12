@@ -47,7 +47,7 @@ jobs:
       
   testDev:
       name: testDev
-      needs: buildProduction
+      needs: buildDev
       runs-on: ${{matrix.os}}
       strategy:
         matrix:
@@ -64,7 +64,7 @@ jobs:
       
   testProd:
       name: testProd
-      needs: buildDev
+      needs: buildProduction
       runs-on: ${{matrix.os}}
       strategy:
         matrix:
