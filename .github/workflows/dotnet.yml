@@ -51,7 +51,7 @@ jobs:
       runs-on: ${{matrix.os}}
       strategy:
         matrix:
-          os: [windows-latest, macos-latest, ubunutu-latest]
+          os: [windows-latest, macos-latest, ubuntu-latest]
       steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -68,7 +68,7 @@ jobs:
       runs-on: ${{matrix.os}}
       strategy:
         matrix:
-          os: [windows-latest, macos-latest, ubunutu-latest]
+          os: [windows-latest, macos-latest, ubuntu-latest]
       steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
