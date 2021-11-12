@@ -19,7 +19,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
                     <ul class="navbar-nav">
-                        
+
                         @{
                             // to see if user have logged in.
                             int userId = 0;
@@ -31,8 +31,8 @@
 
                             }
 
-                        }
-                        
+                        }                       
+
                         @if (userId > 0) // if bigger then zero the user is logged in
                         {
                             <li class="nav-item">
@@ -54,15 +54,18 @@
                     </ul>
                     @if (userId > 0)
                     {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Profile</a>
-                            </li>
-                        </ul>
-                    }
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Profile</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admins" asp-action="Index">Admin Profile</a>
+                    </li>
+                </ul>
+                    }                    
                 </div>
             </div>
         </nav>
