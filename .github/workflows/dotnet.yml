@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, dev ]
   pull_request:
     branches: [ master ]
 
@@ -10,7 +10,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    environment: 
+      name: production
+      url: https://github.com/ToveSeger/SalaryApplication
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
