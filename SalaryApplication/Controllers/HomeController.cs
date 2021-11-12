@@ -19,10 +19,6 @@
             _logger = logger;
         }
 
-        public HomeController()
-        {
-
-        }
 
         public IActionResult Index()
         {
