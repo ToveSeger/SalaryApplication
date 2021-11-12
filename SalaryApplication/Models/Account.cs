@@ -27,6 +27,8 @@
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "You need to fill in a password")]
+        [DataType(DataType.Password)]
+        [RegularExpression(@"\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*")]
         public string PassWord { get; set; }
 
  
