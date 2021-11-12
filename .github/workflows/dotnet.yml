@@ -29,7 +29,7 @@ jobs:
   buildDev:
  
     runs-on: ubuntu-latest
-    if: github.event.ref == 'refs/head/dev'
+    if: github.event.ref == 'refs/tree/dev'
     environment: 
       name: development
       url: https://github.com/ToveSeger/SalaryApplication/tree/dev
