@@ -2,17 +2,19 @@ name: .NET
 
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ dev ]
+
   pull_request:
     branches: [ master ]
 
 jobs:
-  build:
-
+  buildProduction:
+ 
     runs-on: ubuntu-latest
+    if: github.event.ref == 'refs/head/master'
     environment: 
       name: production
-      url: https://github.com/ToveSeger/SalaryApplication
+      url: https://github.com/ToveSeger/SalaryApplication/tree/master
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -23,5 +25,57 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+
+
+  buildDev:
+ 
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    environment: 
+      name: development
+      url: https://github.com/ToveSeger/SalaryApplication/tree/dev
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+
+      
+  testDev:
+      name: testDev
+      needs: buildDev
+      runs-on: ${{matrix.os}}
+      strategy:
+        matrix:
+          os: [windows-latest, macos-latest, ubuntu-latest]
+      steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Test
+        run: dotnet test --verbosity normal
+      
+      
+  testProd:
+      name: testProd
+      needs: buildProduction
+      runs-on: ${{matrix.os}}
+      strategy:
+        matrix:
+          os: [windows-latest, macos-latest, ubuntu-latest]
+      steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Test
+        run: dotnet test --verbosity normal
+      
