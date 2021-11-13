@@ -19,11 +19,8 @@ namespace SalarySystem.Controllers
         // GET: Users
         public IActionResult Index()
         {
-            //var id = int.Parse(TempData["user"].ToString());
-            //var user = _context.Users.FirstOrDefault(e => e.Id == id);
-
-            var user =  _context.Users.First();
-            
+            var id = int.Parse(TempData["user"].ToString());
+            var user = _context.Users.FirstOrDefault(e => e.Id == id);
             return View(user);
         }
         public async Task<IActionResult> DeleteUser(string username, string password, int? id)
