@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 using SalaryApplication.Models;
 using System;
 using System.IO;
@@ -13,19 +15,23 @@ namespace SalaryApplication.Data
         {
         }
 
-        public ApplicationDBContext()
-        {
 
-        }
-        private const string DatabaseName = "SalaryApplication";
+        public string Database = "SalaryApplication.db";
+    
         public DbSet<User> Users { get; set; }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Admin> Admins { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {            
-            optionsBuilder.UseSqlServer($@"Server= .\SQLEXPRESS;Database={DatabaseName};trusted_connection=true");
+
+        {
+            var myFolder = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.ToString();
+            var path = Path.Combine(myFolder, "Databases");
+            Directory.CreateDirectory(path);
+            path = Path.Combine(path, Database);
+            optionsBuilder.UseSqlite($"Data Source={path};");
+
         }
     }
 }
