@@ -2,6 +2,8 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using SalaryApplication.Models;
+using System;
+using System.IO;
 
 namespace SalaryApplication.Data
 {
@@ -13,19 +15,23 @@ namespace SalaryApplication.Data
         {
         }
 
+
         public string Database = "SalaryApplication.db";
+    
         public DbSet<User> Users { get; set; }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Admin> Admins { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
         {
             var myFolder = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.ToString();
             var path = Path.Combine(myFolder, "Databases");
             Directory.CreateDirectory(path);
             path = Path.Combine(path, Database);
             optionsBuilder.UseSqlite($"Data Source={path};");
+
         }
     }
 }
