@@ -2,8 +2,6 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using SalaryApplication.Models;
-using System;
-using System.IO;
 
 namespace SalaryApplication.Data
 {
@@ -15,6 +13,9 @@ namespace SalaryApplication.Data
         {
         }
 
+        public ApplicationDBContext()
+        {
+        }
 
         public string Database = "SalaryApplication.db";
     
