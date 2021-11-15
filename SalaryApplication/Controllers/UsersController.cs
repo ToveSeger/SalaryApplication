@@ -5,7 +5,7 @@ using SalaryApplication.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SalarySystem.Controllers
+namespace SalaryApplication.Controllers
 {
     public class UsersController : Controller
     {

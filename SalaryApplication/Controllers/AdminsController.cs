@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SalaryApplication.Data;
 using SalaryApplication.Models;
 
-namespace SalarySystem.Controllers
+namespace SalaryApplication.Controllers
 {
     public class AdminsController : Controller
     {
@@ -70,6 +70,7 @@ namespace SalarySystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                Console.WriteLine(admin.FirstName);
                 _context.Add(admin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -157,9 +158,9 @@ namespace SalarySystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AdminExists(int id)
+        public bool AdminExists(int id)
         {
-            return _context.Admins.Any(e => e.Id == id);
+            return  _context.Admins.Any(e => e.Id == id);
         }
 
         public async Task<IActionResult> DeleteUser(string username, string password, int? id)
