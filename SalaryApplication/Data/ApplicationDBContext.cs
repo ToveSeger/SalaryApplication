@@ -25,7 +25,7 @@ namespace SalaryApplication.Data
             var path = Path.Combine(myFolder, "Databases");
             Directory.CreateDirectory(path);
             path = Path.Combine(path, Database);
-            optionsBuilder.UseSqlite($"Data Source={path}; ");
+            optionsBuilder.UseSqlite($"Data Source={path};");
         }
     }
 }
