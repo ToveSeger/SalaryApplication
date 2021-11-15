@@ -29,7 +29,7 @@ namespace SalarySystem.Controllers
                 TempData["user"] = id;
             }
             var user = _context.Admins.FirstOrDefault(u => u.Id==id);
-            if (user.IsAdmin)
+            if (user != null && user.IsAdmin)
             {
                 return View(await _context.Admins.ToListAsync());
             }

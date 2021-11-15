@@ -26,7 +26,7 @@ namespace SalaryApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer
+            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlite
             (Configuration.GetConnectionString("ApplicationDBContext")));
         }
 
