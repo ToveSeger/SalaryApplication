@@ -10,5 +10,12 @@
     {
         [Display(Name = "Admin")]
         public bool IsAdmin { get; set; }
+
+        public Admin()
+        {
+
+        }
     }
+
+   
 }
