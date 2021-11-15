@@ -8,8 +8,8 @@ using SalaryApplication.Data;
 namespace SalaryApplication.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20211115132454_intialcreate")]
-    partial class intialcreate
+    [Migration("20211115140111_sqlite")]
+    partial class sqlite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

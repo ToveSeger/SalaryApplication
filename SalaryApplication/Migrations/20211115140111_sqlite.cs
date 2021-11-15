@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-
 namespace SalaryApplication.Migrations
 {
-    public partial class intialcreate : Migration
+    public partial class sqlite : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

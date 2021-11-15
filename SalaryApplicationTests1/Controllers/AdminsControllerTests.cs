@@ -21,13 +21,9 @@ namespace SalaryApplication.Controllers.Tests
             var result = controller.Create() as ViewResult;
             Assert.AreEqual("Create", result.ViewName);
         }
-        
-
-        [Test()] //Integration test
-        public void CreateTestShouldAddAdmin()
+      
+        internal Admin createAdminObject()
         {
-            _context = new ApplicationDBContext();
-            AdminsController controller = new AdminsController(_context);
             Admin admin = new Admin();
             admin.IsAdmin = true;
             admin.Salary = 25000;
@@ -37,34 +33,34 @@ namespace SalaryApplication.Controllers.Tests
             admin.LastName = "Bengtsson";
             admin.UserName = "WenBen";
             admin.PassWord = "Wendela89";
+
+            return admin;
+        }
+
+
+        [Test()] //Integration test
+        public void CreateTestShouldAddAdmin()
+        {
+            _context = new ApplicationDBContext();
+            AdminsController controller = new AdminsController(_context);
+            var admin = createAdminObject();
             System.Threading.Tasks.Task<IActionResult> createAdmin = controller.Create(admin);
             Thread.Sleep(2000);
             var addedUser = controller.AdminExists(admin.Id);
             Assert.IsTrue(addedUser);
         }
 
-        [Test()]
-        public void DeleteTestShouldCreateAndDeleteAdmin()
+        [Test()] //Integration test
+        public void DeleteTestShouldDeleteAdmin()
         {
             _context = new ApplicationDBContext();
             AdminsController controller = new AdminsController(_context);
-            Admin admin = new Admin();
-            admin.IsAdmin = true;
-            admin.Salary = 25000;
-            admin.Role = "dev";
-            admin.EmployeeNumber = 20365;
-            admin.FirstName = "Wiktor";
-            admin.LastName = "Larsson";
-            admin.UserName = "WikLar";
-            admin.PassWord = "Wiktor88";
-            System.Threading.Tasks.Task<IActionResult> createAdmin = controller.Create(admin);
-            Thread.Sleep(2000);
+            var admin = createAdminObject();
             System.Threading.Tasks.Task<IActionResult> deleteAdmin = controller.DeleteConfirmed(admin.Id);
             Thread.Sleep(2000);
             var addedUser = controller.AdminExists(admin.Id);
             Assert.IsFalse(addedUser);
         }
 
-       
     }
 }
