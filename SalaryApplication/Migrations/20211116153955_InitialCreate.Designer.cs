@@ -8,8 +8,8 @@ using SalaryApplication.Data;
 namespace SalaryApplication.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20211115140111_sqlite")]
-    partial class sqlite
+    [Migration("20211116153955_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,9 @@ namespace SalaryApplication.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -41,6 +44,12 @@ namespace SalaryApplication.Migrations
                     b.Property<string>("PassWord")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -53,27 +62,18 @@ namespace SalaryApplication.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Account");
                 });
 
+            modelBuilder.Entity("SalaryApplication.Models.Admin", b =>
+                {
+                    b.HasBaseType("SalaryApplication.Models.Account");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
             modelBuilder.Entity("SalaryApplication.Models.User", b =>
                 {
                     b.HasBaseType("SalaryApplication.Models.Account");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Salary")
-                        .HasColumnType("INTEGER");
-
                     b.HasDiscriminator().HasValue("User");
-                });
-
-            modelBuilder.Entity("SalaryApplication.Models.Admin", b =>
-                {
-                    b.HasBaseType("SalaryApplication.Models.User");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER");
-
-                    b.HasDiscriminator().HasValue("Admin");
                 });
 #pragma warning restore 612, 618
         }

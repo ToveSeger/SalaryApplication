@@ -6,15 +6,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class Admin: User
+    public class Admin: Account
     {
-        [Display(Name = "Admin")]
-        public bool IsAdmin { get; set; }
 
-        public Admin()
-        {
-
-        }
     }
 
    

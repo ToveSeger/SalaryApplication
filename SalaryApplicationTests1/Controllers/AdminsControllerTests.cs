@@ -34,13 +34,14 @@ namespace SalaryApplication.Controllers.Tests
             TempDataDictionaryFactory tempDataDictionaryFactory = new TempDataDictionaryFactory(tempDataProvider);
             ITempDataDictionary tempData = tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
             controller.TempData = tempData;
-            var user = _context.Admins.FirstOrDefault(u => u.IsAdmin == true);
+            var user = _context.Accounts.FirstOrDefault(u => u.IsAdmin == true);
             var result = controller.Index(user.Id).Result as ViewResult;
             Assert.AreEqual("Index", result.ViewName);
         }
 
         /// <summary>
-        /// Makes sure non admins are routed no non admin-view when trying to access admin view
+        /// Makes sure non admins are routed no non admin-view when trying to access 
+        /// admin view. If this one fails. Make sure you have a user in the database.
         /// </summary>
         [Test()]
         public void IndexTestForNonAdmin()
@@ -51,7 +52,7 @@ namespace SalaryApplication.Controllers.Tests
             TempDataDictionaryFactory tempDataDictionaryFactory = new TempDataDictionaryFactory(tempDataProvider);
             ITempDataDictionary tempData = tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
             controller.TempData = tempData;
-            var user = _context.Admins.FirstOrDefault(u => u.IsAdmin == false);
+            var user = _context.Accounts.FirstOrDefault(u => u.IsAdmin == false);
             var result = controller.Index(user.Id).Result as ViewResult;
             Assert.AreEqual("NotAdmin", result.ViewName);
         }
@@ -71,19 +72,19 @@ namespace SalaryApplication.Controllers.Tests
         /// Creates admin object to be used in internal test methods. 
         /// </summary>
         /// <returns>Admin object</returns>
-        internal Admin createAdminObject()
+        internal User createAdminObject()
         {
-            Admin admin = new Admin();
-            admin.IsAdmin = true;
-            admin.Salary = 25000;
-            admin.Role = "dev";
-            admin.EmployeeNumber = 20365;
-            admin.FirstName = "Wendela";
-            admin.LastName = "Bengtsson";
-            admin.UserName = "WenBen";
-            admin.PassWord = "Wendela89";
+            User user = new();
+            user.IsAdmin = true;
+            user.Salary = 25000;
+            user.Role = "dev";
+            user.EmployeeNumber = 20365;
+            user.FirstName = "Wendela";
+            user.LastName = "Bengtsson";
+            user.UserName = "WenBen";
+            user.PassWord = "Wendela89";
 
-            return admin;
+            return user;
         }
 
         /// <summary>
@@ -112,7 +113,7 @@ namespace SalaryApplication.Controllers.Tests
             _context = new ApplicationDBContext();
             AdminsController controller = new AdminsController(_context);
             var admin = createAdminObject();
-            admin = _context.Admins.FirstOrDefault(e => e.UserName == admin.UserName && e.PassWord == admin.PassWord);
+            admin = (User)_context.Accounts.FirstOrDefault(e => e.UserName == admin.UserName && e.PassWord == admin.PassWord);
             System.Console.WriteLine(admin.Id);
             System.Threading.Tasks.Task<IActionResult> deleteAdmin = controller.DeleteUser(admin.UserName, admin.PassWord, admin.Id);
             Thread.Sleep(2000);

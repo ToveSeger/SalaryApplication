@@ -27,16 +27,8 @@ namespace SalaryApplication.Controllers
             if (TempData != null && TempData.ContainsKey("user"))
             {
                 int id = int.Parse(TempData["user"].ToString());
-                var admin = _context.Admins.FirstOrDefault(e => e.Id == id);
-                if (admin != null)
-                {
-                    return View("AdminProfile", admin);
-                }
-                else
-                {
-                    var user = _context.Users.FirstOrDefault(e => e.Id == id);
-                    return View(user);
-                }
+                var user = _context.Accounts.FirstOrDefault(e => e.Id == id);
+                return View("Index", user);         
             }
             
             else
@@ -79,7 +71,7 @@ namespace SalaryApplication.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var user = await _context.Accounts
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {

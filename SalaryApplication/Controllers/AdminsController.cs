@@ -10,9 +10,6 @@ using SalaryApplication.Models;
 
 namespace SalaryApplication.Controllers
 {
-    /// <summary>
-    /// Controls admin functionality
-    /// </summary>
     public class AdminsController : Controller
     {
         private readonly ApplicationDBContext _context;
@@ -22,12 +19,8 @@ namespace SalaryApplication.Controllers
             _context = context;
         }
 
-        /// <summary>
-        /// Gets the admin profile view if user is logged in as admin. 
-        /// If user is logged in as non admin, NotAdmin is presented.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>The correct view depending on above mentioned parameters </returns>
+
+        // GET: Admins
         public async Task<IActionResult> Index(int? id)
         {
             if (TempData.ContainsKey("user"))
@@ -35,20 +28,16 @@ namespace SalaryApplication.Controllers
                 id = int.Parse(TempData["user"].ToString());
                 TempData["user"] = id;
             }
-            var user = _context.Admins.FirstOrDefault(u => u.Id==id);
+            var user = _context.Accounts.FirstOrDefault(u => u.Id==id);
             if (user != null && user.IsAdmin)
             {
-                return View("Index", await _context.Admins.ToListAsync());
+                return View("Index", await _context.Accounts.ToListAsync());
             }
             else return View("NotAdmin");
         }
 
 
-        /// <summary>
-        /// Gets the details of the specified id. 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>View with details of specified id if user exists, otherwhise NotFound view</returns>
+        // GET: Admins/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,7 +45,7 @@ namespace SalaryApplication.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admins
+            var admin = await _context.Accounts
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (admin == null)
             {
@@ -66,39 +55,30 @@ namespace SalaryApplication.Controllers
             return View(admin);
         }
 
-        /// <summary>
-        /// Gets creation view
-        /// </summary>
-        /// <returns>Creation view</returns>
+        // GET: Admins/Create
         public IActionResult Create()
         {
             return View("Create");
         }
 
-        /// <summary>
-        /// Creates a new user/admin with the specified bind parameters if modelstate is valid.  
-        /// </summary>
-        /// <param name="admin"></param>
-        /// <returns>Index view of admin</returns>
+        // POST: Admins/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IsAdmin,Salary,Role,Id,EmployeeNumber,FirstName,LastName,UserName,PassWord")] Admin admin)
+        public async Task<IActionResult> Create([Bind("IsAdmin,Salary,Role,Id,EmployeeNumber,FirstName,LastName,UserName,PassWord")] User user)
         {
             if (ModelState.IsValid)
-            {
-                Console.WriteLine(admin.FirstName);
-                _context.Add(admin);
+            { 
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(admin);
+            return View(user);
         }
 
-        /// <summary>
-        /// Presents edit view.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Edit view as long as user is admin, otherwhise NotFound view</returns>
+
+        // GET: Admins/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -106,25 +86,22 @@ namespace SalaryApplication.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admins.FindAsync(id);
-            if (admin == null)
+            var user = await _context.Accounts.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(admin);
+            return View(user);
         }
 
-        /// <summary>
-        /// Makes it possible to edit a specified user as long as id is found. 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="admin"></param>
-        /// <returns>Admin index view if action is carried out, otherwhise NotFound view</returns>
+        // POST: Admins/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IsAdmin,Salary,Role,Id,EmployeeNumber,FirstName,LastName,UserName,PassWord")] Admin admin)
+        public async Task<IActionResult> Edit(int id, [Bind("IsAdmin,Salary,Role,Id,EmployeeNumber,FirstName,LastName,UserName,PassWord")] User user)
         {
-            if (id != admin.Id)
+            if (id != user.Id)
             {
                 return NotFound();
             }
@@ -133,12 +110,12 @@ namespace SalaryApplication.Controllers
             {
                 try
                 {
-                    _context.Update(admin);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdminExists(admin.Id))
+                    if (!AdminExists(user.Id))
                     {
                         return NotFound();
                     }
@@ -149,14 +126,10 @@ namespace SalaryApplication.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(admin);
+            return View(user);
         }
 
-        /// <summary>
-        /// Presents deletion view as long as user is admin.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Deletion view as long as user is admin, otherwhise NotFound view</returns>
+        // GET: Admins/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -164,60 +137,43 @@ namespace SalaryApplication.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admins
+            var user = await _context.Accounts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (admin == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(admin);
+            return View(user);
         }
 
-
-        /// <summary>
-        /// Makes it possible to delete it a specified admin user as long as id is found. 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Admin index view if action is carried out, otherwhise NotFound view</returns>
+        // POST: Admins/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var admin = await _context.Admins.FindAsync(id);
-            _context.Admins.Remove(admin);
+            var admin = await _context.Accounts.FindAsync(id);
+            _context.Accounts.Remove(admin);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        /// <summary>
-        /// Checks whether an admin exists or not.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>false if admin doesn't exist, true if it exists</returns>
         public bool AdminExists(int id)
         {
-            return  _context.Admins.Any(e => e.Id == id);
+            return  _context.Accounts.Any(e => e.Id == id);
         }
 
-        /// <summary>
-        /// Controls that the username & password is correct for the specified user.If so: delete user.
-        /// </summary>
-        /// <param name = "username" ></ param >
-        /// < param name= "password" ></ param >
-        /// < param name= "id" ></ param >
-        /// < returns > Index view of admin</returns>
         public async Task<IActionResult> DeleteUser(string username, string password, int? id)
         {
-            var user = _context.Admins.FirstOrDefault(e => e.Id == id);
+            var user = _context.Accounts.FirstOrDefault(e => e.Id == id);
 
             if (username == user.UserName && password == user.PassWord)
             {
-                _context.Admins.Remove(user);
+                _context.Accounts.Remove(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
-            }
         }
+    }
 }

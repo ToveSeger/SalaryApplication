@@ -2,7 +2,7 @@
 
 namespace SalaryApplication.Migrations
 {
-    public partial class sqlite : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,15 +12,15 @@ namespace SalaryApplication.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Salary = table.Column<int>(type: "INTEGER", nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: true),
                     EmployeeNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", nullable: false),
                     PassWord = table.Column<string>(type: "TEXT", nullable: false),
-                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
-                    Salary = table.Column<int>(type: "INTEGER", nullable: true),
-                    Role = table.Column<string>(type: "TEXT", nullable: true),
-                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: true)
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

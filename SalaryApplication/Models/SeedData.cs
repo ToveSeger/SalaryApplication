@@ -21,12 +21,25 @@
                     return;
                 }
 
+                context.Admins.Add(
+new Admin
+{
+    IsAdmin = true,
+    FirstName = "Rickard",
+    LastName = "Hallberg",
+    EmployeeNumber = 12345,
+    UserName = "admin1",
+    PassWord = "admin1234",
+    Salary = 40000,
+    Role = "Teacher"
+}
+);
                 context.Users.Add(
                     new User
                     {
                         FirstName = "Jesper",
                         LastName = "Persson",
-                        EmployeeNumber = 123456,
+                        EmployeeNumber = 87596,
                         UserName = "jeppan",
                         PassWord = "login123",
                         Salary = 10000,
@@ -35,18 +48,19 @@
                     );
 
                 context.Users.Add(
-                new Admin
-                {
-                    IsAdmin = true,
-                    FirstName = "Rickard",
-                    LastName = "Hallberg",
-                    EmployeeNumber = 123457,
-                    UserName = "admin1",
-                    PassWord = "admin1234",
-                    Salary = 40000,
-                    Role = "Teacher"
-                }
-                );
+    new User
+    {
+        FirstName = "Tove",
+        LastName = "Seger",
+        EmployeeNumber = 65423,
+        UserName = "ToveSeger",
+        PassWord = "login1234",
+        Salary = 38000,
+        Role = "Product Owner",
+    }
+    );
+
+
 
                 context.SaveChanges();
             }
