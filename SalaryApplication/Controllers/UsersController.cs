@@ -26,23 +26,25 @@ namespace SalaryApplication.Controllers
 
             if (TempData != null && TempData.ContainsKey("user"))
             {
-                var id = int.Parse(TempData["user"].ToString());
-                var user = _context.Admins.FirstOrDefault(e => e.Id == id);
-
-                if (user.IsAdmin)
+                int id = int.Parse(TempData["user"].ToString());
+                var admin = _context.Admins.FirstOrDefault(e => e.Id == id);
+                if (admin != null)
                 {
-                    return View("AdminProfile", user);
+                    return View("AdminProfile", admin);
                 }
                 else
                 {
-                    return View("Index", user);
-
+                    var user = _context.Users.FirstOrDefault(e => e.Id == id);
+                    return View(user);
                 }
             }
+            
             else
             {
                 return NotFound();
             }
+
+            
         }
 
         /// <summary>
