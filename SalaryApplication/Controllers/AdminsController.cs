@@ -10,6 +10,9 @@ using SalaryApplication.Models;
 
 namespace SalaryApplication.Controllers
 {
+    /// <summary>
+    /// Controls admin functionality
+    /// </summary>
     public class AdminsController : Controller
     {
         private readonly ApplicationDBContext _context;
@@ -19,8 +22,12 @@ namespace SalaryApplication.Controllers
             _context = context;
         }
 
-
-        // GET: Admins
+        /// <summary>
+        /// Gets the admin profile view if user is logged in as admin. 
+        /// If user is logged in as non admin, NotAdmin is presented.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The correct view depending on above mentioned parameters </returns>
         public async Task<IActionResult> Index(int? id)
         {
             if (TempData.ContainsKey("user"))
@@ -31,13 +38,17 @@ namespace SalaryApplication.Controllers
             var user = _context.Admins.FirstOrDefault(u => u.Id==id);
             if (user != null && user.IsAdmin)
             {
-                return View(await _context.Admins.ToListAsync());
+                return View("Index", await _context.Admins.ToListAsync());
             }
             else return View("NotAdmin");
         }
 
 
-        // GET: Admins/Details/5
+        /// <summary>
+        /// Gets the details of the specified id. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>View with details of specified id if user exists, otherwhise NotFound view</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,15 +66,20 @@ namespace SalaryApplication.Controllers
             return View(admin);
         }
 
-        // GET: Admins/Create
+        /// <summary>
+        /// Gets creation view
+        /// </summary>
+        /// <returns>Creation view</returns>
         public IActionResult Create()
         {
             return View("Create");
         }
 
-        // POST: Admins/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Creates a new user/admin with the specified bind parameters if modelstate is valid.  
+        /// </summary>
+        /// <param name="admin"></param>
+        /// <returns>Index view of admin</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IsAdmin,Salary,Role,Id,EmployeeNumber,FirstName,LastName,UserName,PassWord")] Admin admin)
@@ -78,7 +94,11 @@ namespace SalaryApplication.Controllers
             return View(admin);
         }
 
-        // GET: Admins/Edit/5
+        /// <summary>
+        /// Presents edit view.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Edit view as long as user is admin, otherwhise NotFound view</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,9 +114,12 @@ namespace SalaryApplication.Controllers
             return View(admin);
         }
 
-        // POST: Admins/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Makes it possible to edit a specified user as long as id is found. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="admin"></param>
+        /// <returns>Admin index view if action is carried out, otherwhise NotFound view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IsAdmin,Salary,Role,Id,EmployeeNumber,FirstName,LastName,UserName,PassWord")] Admin admin)
@@ -129,7 +152,11 @@ namespace SalaryApplication.Controllers
             return View(admin);
         }
 
-        // GET: Admins/Delete/5
+        /// <summary>
+        /// Presents deletion view as long as user is admin.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Deletion view as long as user is admin, otherwhise NotFound view</returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +174,12 @@ namespace SalaryApplication.Controllers
             return View(admin);
         }
 
-        // POST: Admins/Delete/5
+
+        /// <summary>
+        /// Makes it possible to delete it a specified admin user as long as id is found. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Admin index view if action is carried out, otherwhise NotFound view</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -158,11 +190,23 @@ namespace SalaryApplication.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Checks whether an admin exists or not.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>false if admin doesn't exist, true if it exists</returns>
         public bool AdminExists(int id)
         {
             return  _context.Admins.Any(e => e.Id == id);
         }
 
+        /// <summary>
+        /// Controls that the username & password is correct for the specified user.If so: delete user.
+        /// </summary>
+        /// <param name = "username" ></ param >
+        /// < param name= "password" ></ param >
+        /// < param name= "id" ></ param >
+        /// < returns > Index view of admin</returns>
         public async Task<IActionResult> DeleteUser(string username, string password, int? id)
         {
             var user = _context.Admins.FirstOrDefault(e => e.Id == id);
@@ -174,6 +218,6 @@ namespace SalaryApplication.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
+            }
         }
-    }
 }
