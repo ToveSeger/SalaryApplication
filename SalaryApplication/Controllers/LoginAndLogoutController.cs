@@ -32,8 +32,8 @@
         /// <returns>succedview or failview.</returns>
         public ActionResult LoginVerification(string password, string username)
         {
-            //tho Admin inherit Users, it´s enough to search in User context. 
-            var user = _context.Users.FirstOrDefault(u => u.UserName == username && u.PassWord == password);
+            
+            var user = _context.Accounts.FirstOrDefault(u => u.UserName == username && u.PassWord == password);
             if (user != null)
             {
                 TempData["user"] = user.Id; 

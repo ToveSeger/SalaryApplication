@@ -10,6 +10,11 @@
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Admin")]
+        public bool IsAdmin { get; set; }
+
+        public int Salary { get; set; }
+        public string Role { get; set; }
 
         [Display(Name = "Employee number")]
         [Range(minimum:10000, maximum:99999)]

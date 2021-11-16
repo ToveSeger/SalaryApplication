@@ -18,8 +18,7 @@ namespace SalaryApplication.Controllers.Tests
         /// </summary>
         [Test()]
         public void IndexTest()
-        {
-            
+        {            
             var result = controller.Index() as ViewResult;
             Assert.AreEqual("Index", result.ViewName);
         }

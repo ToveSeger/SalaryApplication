@@ -27,7 +27,7 @@ namespace SalaryApplication.Controllers.Tests
             ITempDataDictionary tempData = tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
             controller.TempData = tempData;
 
-            var user = _context.Users.FirstOrDefault();
+            var user = _context.Accounts.FirstOrDefault();
             var result = controller.LoginVerification(user.PassWord, user.UserName) as ViewResult;
             Assert.AreEqual("LoginSucced", result.ViewName);
             Assert.IsNotEmpty(controller.TempData);

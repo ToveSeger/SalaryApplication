@@ -1,5 +1,4 @@
-﻿@model SalaryApplication.Models.Admin
-
+﻿@model SalaryApplication.Models.Account
 @{
     ViewData["Title"] = "Delete";
 }
@@ -85,16 +84,16 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="UserName" class="control-label"></label>
-                            <input asp-for="UserName" class="form-control" />
+                            <input asp-for="UserName" value=" " class="form-control" />
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <input type="hidden" asp-for="Id" />
                         <div class="form-group">
                             <label asp-for="PassWord" class="control-label"></label>
-                            <input asp-for="PassWord"  class="form-control" />
+                            <input asp-for="PassWord" value ="" class="form-control" />
                             <span asp-validation-for="PassWord" class="text-danger"></span>
                         </div> 
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-danger">Delete User</button>
                     </form>
                 </div>
                 <div class="modal-footer">

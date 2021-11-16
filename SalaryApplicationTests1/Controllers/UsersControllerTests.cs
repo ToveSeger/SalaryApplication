@@ -52,27 +52,27 @@ namespace SalaryApplication.Controllers.Tests
             AdminsController adminC = new(_context);
             var user = createAdminObject();
             System.Threading.Tasks.Task<IActionResult> createAdmin = adminC.Create(user);
-            user = _context.Admins.Where(e => e.UserName == user.UserName && e.PassWord == user.PassWord).FirstOrDefault();
-            Assert.AreEqual(user.FirstName, "Mikael");
+            var userDB = _context.Accounts.Where(e => e.UserName == user.UserName && e.PassWord == user.PassWord).FirstOrDefault();
+            Assert.AreEqual(userDB.FirstName, "Mikael");
 
-            var result = controller.ConfirmDelete(username: user.UserName, password: user.PassWord, user.Id);
-            user = _context.Admins.Where(e => e.UserName == user.UserName && e.PassWord == user.PassWord).FirstOrDefault(); 
-            Assert.IsNull(user);
+            controller.ConfirmDelete(username: userDB.UserName, password: userDB.PassWord, userDB.Id);
+            userDB = _context.Accounts.Where(e => e.UserName == user.UserName && e.PassWord == user.PassWord).FirstOrDefault(); 
+            Assert.IsNull(userDB);
         }
 
         // help-method to create an object. 
-        internal Admin createAdminObject()
+        internal User createAdminObject()
         {
-            Admin admin = new();
-            admin.Salary = 25000;
-            admin.Role = "dev";
-            admin.EmployeeNumber = 20362;
-            admin.FirstName = "Mikael";
-            admin.LastName = "Persbrant";
-            admin.UserName = "MikPer";
-            admin.PassWord = "Mikael89";
+           User user = new();
+            user.Salary = 25000;
+            user.Role = "dev";
+            user.EmployeeNumber = 20362;
+            user.FirstName = "Mikael";
+            user.LastName = "Persbrant";
+            user.UserName = "MikPer";
+            user.PassWord = "Mikael89";
 
-            return admin;
+            return user;
         }
     }
 }
