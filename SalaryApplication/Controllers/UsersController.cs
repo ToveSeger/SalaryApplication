@@ -23,11 +23,21 @@ namespace SalaryApplication.Controllers
         public IActionResult Index()
         {
 
+
             if (TempData != null && TempData.ContainsKey("user"))
             {
-            var id = int.Parse(TempData["user"].ToString());
-            var user = _context.Users.FirstOrDefault(e => e.Id == id);
-            return View("Index", user);
+                var id = int.Parse(TempData["user"].ToString());
+                var user = _context.Admins.FirstOrDefault(e => e.Id == id);
+
+                if (user.IsAdmin)
+                {
+                    return View("AdminProfile", user);
+                }
+                else
+                {
+                    return View("Index", user);
+
+                }
             }
             else
             {
