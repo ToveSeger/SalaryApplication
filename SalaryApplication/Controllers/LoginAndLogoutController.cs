@@ -15,30 +15,29 @@
             _context = context;
         }
 
-        // GET: LoginController
+       /// <summary>
+       /// GET login view. 
+       /// </summary>
+       /// <returns>Login view.</returns>
         public ActionResult Index()
         {
             return View();
         }
-
+        /// <summary>
+        /// Login controller. Checks if user exists through username and password.
+        /// sets the tempData to user id to be able to view logged in navbar.
+        /// </summary>
+        /// <param name="password">input user</param>
+        /// <param name="username">input user</param>
+        /// <returns>succedview or failview.</returns>
         public ActionResult LoginVerification(string password, string username)
         {
+            //tho Admin inherit Users, it´s enough to search in User context. 
             var user = _context.Users.FirstOrDefault(u => u.UserName == username && u.PassWord == password);
             if (user != null)
             {
-                TempData["user"] = user.Id;
-                TempData.Keep();
-
+                TempData["user"] = user.Id; 
                 return View("LoginSucced", user);
-            }
-
-            var user1 = _context.Admins.FirstOrDefault(u => u.UserName == username && u.PassWord == password);
-            if (user1 != null)
-            {
-                TempData["user"] = user1.Id;
-                TempData.Keep();
-
-                return View("LoginSucced", user1);
             }
 
             return View("LoginFailed");
