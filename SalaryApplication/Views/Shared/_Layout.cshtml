@@ -26,14 +26,15 @@
                             if (TempData.ContainsKey("user"))
                             {
                                 userId = int.Parse(TempData["user"].ToString());
-                                TempData["user"] = userId;
+                                TempData.Keep("user");
 
 
                             }
 
                         }                       
 
-                        @if (userId > 0) // if bigger then zero the user is logged in
+                        @if (userId > 0) // if userid bigger then 0, then a user is logged in 
+                                         // and found in the database.
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" title="Manage"></a>

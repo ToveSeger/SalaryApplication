@@ -15,7 +15,7 @@
             using (var context = new ApplicationDBContext
                 (serviceProvider.GetRequiredService<DbContextOptions<ApplicationDBContext>>()))
             {
-
+                // if DB already contains data there is no need for mockdata.
                 if (context.Accounts.Any())
                 {
                     return;
@@ -38,13 +38,13 @@
                 new Admin
                 {
                     IsAdmin = true,
-                    FirstName = "Tove",
-                    LastName = "Seger",
+                    FirstName = "Rickard",
+                    LastName = "Hallberg",
                     EmployeeNumber = 123457,
-                    UserName = "ToveSeger",
-                    PassWord = "login1234",
+                    UserName = "admin1",
+                    PassWord = "admin1234",
                     Salary = 40000,
-                    Role = "Manager"
+                    Role = "Teacher"
                 }
                 );
 

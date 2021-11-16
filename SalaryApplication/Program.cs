@@ -21,10 +21,9 @@ namespace SalaryApplication
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
+                // running mockdata. 
                 try
                 {
-
                     SeedData.Initialize(services);
                 }
                 catch (Exception)
