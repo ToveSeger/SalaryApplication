@@ -11,7 +11,7 @@ jobs:
   buildProduction:
  
     runs-on: ubuntu-latest
-    if: github.event.ref == 'refs/head/master'
+    if: github.event_name == 'pull_request'
     environment: 
       name: production
       url: https://github.com/ToveSeger/SalaryApplication/tree/master
